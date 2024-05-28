@@ -26,6 +26,7 @@ static void start(int time)
         counter++;
         Console.WriteLine(counter);
         Thread.Sleep(1000);
+
         Console.Clear();
     }
     Console.WriteLine("Tempo Finalizado\nRetornando ao Menu");
