@@ -6,46 +6,66 @@ namespace Funcoes
     {
         public static void Menu()
         {
-            string timeUser = "0";
+            int horas = 0;
+            int minutos = 0;
+            int segundos = 0;
             Console.Clear();
             Console.WriteLine("Defina o tempo que deseja cronometrar:");
-            Console.WriteLine("Formatos: 1s (segundos), 1m(minutos), 1h(horas)");
-            timeUser = Console.ReadLine().ToLower();
-            char type = char.Parse(timeUser.Substring(timeUser.Length - 1, 1));
-            int convTime = 0;
+            Console.WriteLine("Horas:");
+            horas = int.Parse(Console.ReadLine());
+            Console.WriteLine("Minutos:");
+            minutos = int.Parse(Console.ReadLine());
+            Console.WriteLine("Segundos:");
+            segundos = int.Parse(Console.ReadLine());
 
-            switch (type)
-            {
-                case 'm': convTime = 60; break;
-                case 'h': convTime = 3600; break;
-                default: convTime = 1; break;
-            }
+            int totalSegundos = (horas * 3600) + (minutos * 60) + segundos;
 
-            int timeToCount = int.Parse(timeUser.Substring(0, timeUser.Length - 1)) * convTime;
-            Console.WriteLine(timeToCount);
-            Console.WriteLine(convTime);
-            Console.ReadKey();
-            if (timeUser.Length < 2) Environment.Exit(0);
-            else start(timeToCount);
-        }
-
-        public static void start(int time)
-        {
             Console.Clear();
-            int counter = 0;
-            while (counter != time)
+            for (int start_ = 3; start_ >= 0; start_--)
             {
-                counter++;
-                Console.WriteLine(counter);
+                Console.WriteLine($"Iniciando em\n>>>{start_}<<<");
                 Thread.Sleep(1000);
                 Console.Clear();
             }
+
+            start(totalSegundos);
+
+        }
+
+        public static void start(int totalSegundos)
+        {
+
+            int counter = 0;
+            int hora = 0;
+            int minutos = 0;
+            int segundos = 0;
+
+            while (counter != totalSegundos)
+            {
+                Console.Clear();
+                counter++;
+                segundos++;
+                if (segundos == 60)
+                {
+                    minutos++;
+                    segundos = 0;
+                }
+                if (minutos == 59 && segundos == 60)
+                {
+                    hora++;
+                    minutos = 0;
+                    segundos = 0;
+                }
+                Console.WriteLine($">>> {hora}:{minutos}:{segundos}");
+                Thread.Sleep(1000);
+
+            }
             Console.WriteLine("Tempo Finalizado\nRetornando ao Menu");
-            Thread.Sleep(2000);
+            Console.ReadKey();
 
             Menu();
         }
     }
-
-
 }
+
+
